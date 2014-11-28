@@ -9,10 +9,11 @@ class UsersController  < ApplicationController
     else
       flash[:error] = "Invalid user Information"
       redirect_to edit_user_registration_path
+    end
   end
 
   private
-  
+
   def user_params
     params.require(:user).permit(:name)
   end
