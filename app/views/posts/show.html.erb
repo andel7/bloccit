@@ -10,3 +10,7 @@
 </small>
 
 <p> <%= markdown @post.body %></p>
+
+
+
+<%= image_tag(@post.image.url) if @post.image? %>
