@@ -11,6 +11,13 @@
 
 <p> <%= markdown @post.body %></p>
 
-
+<div class="col-md-8">
+  <% if current_user %>
+  <small>Add new Comment</small>
+      <%= render partial: 'comments/form', locals: { topic: @topic, post: @post, comment: @comment } %>
+  <% end %>    
+      <small>Comments</small>
+      <%= render partial: 'comments/comment', collection: @comments %>
+</div>
 
 <%= image_tag(@post.image.url) if @post.image? %>

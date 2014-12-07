@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
  
+  get 'commnets/new'
+
   get 'topics/index'
 
   get 'topics/new'
@@ -14,8 +16,11 @@ Rails.application.routes.draw do
   #resources :topics
 
   resources :topics do 
-      resources :posts, except: [:index]
+      resources :posts, except: [:index] do 
+        resources :comments, only: [:create]
+      end  
   end
+
   
   get 'about' => 'welcome#about'
   root to: 'welcome#index'
