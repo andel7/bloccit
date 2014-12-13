@@ -1,4 +1,6 @@
 <h2><%= comment.body %></h2>
 <small>Created at <%= comment.created_at %>  <%= "by "+comment.user.name if comment.user %></small>
-
+<% if policy(comment).destroy? %>
+        | <%= link_to "Delete", [comment.post, comment], method: :delete %>
+<% end %>
 
