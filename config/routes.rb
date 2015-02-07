@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'topics/edit'
 
   devise_for :users
-    resources :users, only: [:update]
+    resources :users, only: [:update,:show]
   #resources :posts
   #resources :topics
 
