@@ -15,5 +15,13 @@ def authenticated_user(options={})
   user.skip_confirmation!
   user.save
   user
+
 end
+FactoryGirl.define do
+  factory :user do
+    email 'member@example.com'
+    password 'helloworld'
+  end
+end
+
 end
