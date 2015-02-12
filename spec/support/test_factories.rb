@@ -19,7 +19,7 @@ def authenticated_user(options={})
 end
 FactoryGirl.define do
   factory :user do
-    email 'member@example.com'
+    email 'moshe@example.com'
     password 'helloworld'
   end
 end
