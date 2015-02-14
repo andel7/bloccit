@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  respond_to :html,:js
   def new
     
     @post = Post.find(params[:post_id])
@@ -8,19 +9,24 @@ class CommentsController < ApplicationController
   end
 
 
-  def create
+def create
     @post = Post.find(params[:post_id])
-    @topic = @post.topic
-    @comment = @post.comments.build(comment_params)
+    @comments = @post.comments
+
+    @comment = current_user.comments.build( comment_params )
     @comment.post = @post
-    @comment.user = current_user
+    @new_comment = Comment.new
+
     authorize @comment
+
     if @comment.save
-      flash[:notice] = "Post was saved"
-      redirect_to [@topic,@post]
+      flash[:notice] = "Comment was created."
     else
-      render 'posts/show'
-      #render :new
+      flash[:error] = "There was an error saving the comment. Please try again."
+    end
+
+    respond_with(@comment) do |format|
+      format.html { redirect_to [@post.topic, @post] }
     end
   end
 
@@ -32,15 +38,18 @@ class CommentsController < ApplicationController
      authorize @comment
      if @comment.destroy
        flash[:notice] = "Comment was removed."
-       redirect_to [@topic, @post]
      else
        flash[:error] = "Comment couldn't be deleted. Try again."
-       redirect_to [@topic, @post]
      end
+
+     respond_with(@comment) do |format|
+      format.html { redirect_to [@post.topic,@post] }
+     end 
    end
 
+  private
   def comment_params
-    params.require(:comment).permit(:body,:post,:user)
+    params.require(:comment).permit(:body)
   end
 
 end

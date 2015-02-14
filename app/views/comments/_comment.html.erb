@@ -3,7 +3,7 @@
 <small>Created at <%= comment.created_at %> by <%= comment.user.name if comment.user %></small>
 
 <% if policy(comment).destroy? %>
-        | <%= link_to "Delete", [comment.post, comment], method: :delete %>
+        | <%= link_to "Delete", [comment.post, comment], method: :delete ,remote: true %>
 <% end %>
 
 <% end %>

@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 describe Vote do
-include TestFactories
+# include TestFactories
   describe "validations" do
     describe "value validation" do
 
       before do 
-        @v =  Vote.new(value: 1)
-        @v2 = Vote.new(value: -1)
-        @v3 = Vote.new(value: 2)
+        @v = create(:vote, value: 1)
+        @v2 = create(:vote, value: -1)
+        # @v3 = create(:vote, value: 2)
       end
 
       describe '#positive vote' do
@@ -32,9 +32,9 @@ include TestFactories
 
     describe 'after_save' do
       it 'calls Post@update_rank after_save' do
-        post = associated_post
-        vote = Vote.new(value: 1, post: post)
-        expect(post).to receive(:update_rank)
+        @post = create(:post)
+        vote = create(:vote, value: 1, post: @post)
+        expect(@post).to receive(:update_rank)
         vote.save
       end
     end

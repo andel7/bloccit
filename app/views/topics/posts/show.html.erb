@@ -29,10 +29,14 @@
   <h1> <%= markdown @post.title %> </h1>
   <% if current_user %>
   <small>Add new Comment</small>
-      <%= render partial: 'comments/form', locals: { topic: @topic, post: @post, comment: @comment } %>
+      <div class='new-comment'>
+        <%= render partial: 'comments/form', locals: { topic: @topic, post: @post, comment: @comment } %>
+      </div>
   <% end %>    
       <small>Comments</small>
-      <%= render partial: 'comments/comment', collection: @comments %>
+      <div class='js-comments'>
+        <%= render partial: 'comments/comment', collection: @comments %>
+      </div>
 </div>
 
 <%= image_tag(@post.image.url) if @post.image? %>
